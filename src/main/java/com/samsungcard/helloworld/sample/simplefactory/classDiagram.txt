@@ -1,0 +1,40 @@
+@startuml
+SimpleExportController --> SimpleExportServiceFactory
+class SimpleExportController <<@Controller>> {
+    -SimpleExportServiceFactory simpleExportServiceFactory
+    +send()
+}
+
+SimpleExportServiceFactory .> SimpleExportService
+class SimpleExportServiceFactory <<@Component>> {
+    -Map<SimpleExportType, SimpleExportService> serviceMap
+    +getService()
+}
+
+interface SimpleExportService {
+    +export();
+    +transfer()
+    +deleteLocal()
+    +getExportType()
+}
+
+enum SimpleExportType {
+    MAIL
+    FAX
+}
+
+class SimpleMailExportService <<@Service>> implements SimpleExportService {
+    +export();
+    +transfer()
+    +deleteLocal()
+    +getExportType()
+}
+
+class SimpleFaxExportService <<@Service>> implements SimpleExportService {
+    +export();
+    +transfer()
+    +deleteLocal()
+    +getExportType()
+}
+
+@enduml

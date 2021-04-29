@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="https://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<title>첨부파일 샘플</title>
+</head>
+<body>
+<div th:if="${message}">
+	<h3 th:text="${message}"/>
+</div>
+<div>
+	<form method="POST" enctype="multipart/form-data" action="/files">
+		<table>
+			<tr><td>업로드할 파일을 선택해주세요 : </td><td><input type="file" name="file" /></td></tr>
+			<tr><td></td><td><input type="submit" value="Upload" /></td></tr>
+		</table>
+	</form>
+</div>
+<div>
+	<ul>
+		<li th:each="file : ${files}">
+			<a th:href="${file}" th:text="${file}" />
+		</li>
+	</ul>
+</div>
+<a href="/">처음으로</a>
+</body>
+</html>

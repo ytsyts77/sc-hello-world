@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>사원 정보 관리</title>
+    <style>
+    table, th, td {
+        border:1px solid black;
+        border-collapse:collapse;
+    }
+
+    th, td {
+        padding:5px;
+    }
+
+    th {
+        background-color:gray;
+        color:white;
+    }
+
+    tr:nth-child(even) {
+        background-color:#eee
+    }
+
+    tr:nth-child(odd) {
+        backgrond-color:#fff;
+    }
+    </style>
+</head>
+<body>
+<h3>사원 목록</h3>
+<p><form th:action="@{/emp/edit}" method="get"><input type="submit" value="등록"></form></p>
+<div th:switch="${empList.size}">
+    <h2 th:case="${0}">등록된 데이터가 없습니다.</h2>
+    <div th:case="*">
+        <table>
+            <thead>
+            <tr>
+                <th>이름</th>
+                <th>성</th>
+                <th>이메일</th>
+                <th>수정</th>
+                <th>삭제</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="emp : ${empList}">
+                <td th:text="${emp.firstName}"></td>
+                <td th:text="${emp.lastName}"></td>
+                <td th:text="${emp.email}"></td>
+                <td><form action="#" th:action="@{/emp/edit/{id}(id=${emp.id})}" method="get"><input type="submit" value="수정"></form></td>
+                <td><form action="#" th:action="@{/emp/remove/{id}(id=${emp.id})}" method="get"><input type="submit" value="삭제"></form></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<div th:if="${messages}">
+    <p><h4 th:text="${messages}"/></p>
+</div>
+<p><a href="/">처음으로</a></p>
+</body>
+</html>

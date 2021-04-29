@@ -1,0 +1,98 @@
+@startuml
+class ExportController <<@Controller>> {
+    -FaxExportServiceFactory faxExportServiceFactory
+    -MailExportServiceFactory mailExportServiceFactory
+    -EdmsExportServiceFactory edmsExportServiceFactory
+    +exportMail()
+    +exportFax()
+    +exportEdms()
+}
+
+ExportController ---> FaxExportServiceFactory
+ExportController ---> MailExportServiceFactory
+ExportController ---> EdmsExportServiceFactory
+abstract ExportServiceFactory {
+    +exportAndTransfer()
+    #getService()
+}
+
+class FaxExportServiceFactory <<@Component>> extends ExportServiceFactory {
+    -Map<StorageType, StorageService> serviceMap;
+    #getService()
+}
+
+class MailExportServiceFactory <<@Component>> extends ExportServiceFactory {
+    -Map<StorageType, StorageService> serviceMap;
+    #getService()
+}
+
+class EdmsExportServiceFactory <<@Component>> extends ExportServiceFactory {
+    -Map<StorageType, StorageService> serviceMap;
+    #getService()
+}
+
+ExportServiceFactory ---> ExportService
+interface ExportService {
+    export()
+    transfer()
+    deleteLocal()
+    getStorageType()
+    getLocationType()
+}
+
+class FaxGifExportService <<@Service>> implements ExportService {
+    +export()
+    +transfer()
+    +deleteLocal()
+    +getStorageType()
+    +getLocationType()
+}
+
+class FaxPdfExportService <<@Service>> implements ExportService {
+    +export()
+    +transfer()
+    +deleteLocal()
+    +getStorageType()
+    +getLocationType()
+}
+
+class MailGifExportService <<@Service>> implements ExportService {
+    +export()
+    +transfer()
+    +deleteLocal()
+    +getStorageType()
+    +getLocationType()
+}
+
+class MailPdfExportService <<@Service>> implements ExportService {
+    +export()
+    +transfer()
+    +deleteLocal()
+    +getStorageType()
+    +getLocationType()
+}
+
+class EdmsGifExportService <<@Service>> implements ExportService {
+    +export()
+    +transfer()
+    +deleteLocal()
+    +getStorageType()
+    +getLocationType()
+}
+
+class EdmsPdfExportService <<@Service>> implements ExportService {
+    +export()
+    +transfer()
+    +deleteLocal()
+    +getStorageType()
+    +getLocationType()
+}
+
+enum TargetType {
+    MAIL, FAX, EDMS
+}
+
+enum ExportType {
+    GIF, PDF
+}
+@enduml

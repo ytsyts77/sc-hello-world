@@ -1,0 +1,43 @@
+@startuml
+EmpController --> EmpService
+class EmpController <<@Controller>> {
+    -EmpService empService
+    +viewEdit()
+    +editEmpById()
+    +getAll()
+    +remove()
+    +add()
+    +eaeHandler()
+}
+
+EmpRestController --> EmpService
+class EmpRestController <<@Controller>> {
+    -EmpService empService
+    +getAll()
+    +getData()
+    +putData()
+    +removeData()
+    +postData()
+    +eaeHandler()
+    +enfHandler()
+    +enfHandler()
+}
+
+EmpService -> EmpRepository
+class EmpService <<@Service>> {
+    -EmpRepository empRepository
+    +listAll()
+    +find()
+    +modify()
+    +remove()
+    +add()
+}
+
+interface JpaRepository {
+}
+
+JpaRepository<|--EmpRepository
+interface EmpRepository <<@Repository>> {
+}
+
+@enduml

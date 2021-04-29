@@ -1,0 +1,8 @@
+@startuml
+
+class StorageProperties {
+    - String location
+    + getLocation()
+    + setLocation()
+}
+@enduml

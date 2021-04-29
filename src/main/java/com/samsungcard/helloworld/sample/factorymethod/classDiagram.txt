@@ -1,0 +1,74 @@
+@startuml
+class ExportController <<@Controller>> {
+    -FaxExportServiceFactory faxExportServiceFactory
+    -MailExportServiceFactory mailExportServiceFactory
+    +exportMail()
+    +exportFax()
+}
+
+ExportController --> FaxExportServiceFactory
+ExportController --> MailExportServiceFactory
+abstract ExportServiceFactory {
+    +exportAndTransfer()
+    #getService()
+}
+
+class FaxExportServiceFactory <<@Component>> extends ExportServiceFactory {
+    -Map<StorageType, StorageService> serviceMap;
+    #getService()
+}
+
+class MailExportServiceFactory <<@Component>> extends ExportServiceFactory {
+    -Map<StorageType, StorageService> serviceMap;
+    #getService()
+}
+
+ExportServiceFactory --> ExportService
+interface ExportService {
+    export()
+    transfer()
+    deleteLocal()
+    getStorageType()
+    getLocationType()
+}
+
+class FaxGifExportService <<@Service>> implements ExportService {
+    +export()
+    +transfer()
+    +deleteLocal()
+    +getStorageType()
+    +getLocationType()
+}
+
+class FaxPdfExportService <<@Service>> implements ExportService {
+    +export()
+    +transfer()
+    +deleteLocal()
+    +getStorageType()
+    +getLocationType()
+}
+
+class MailGifExportService <<@Service>> implements ExportService {
+    +export()
+    +transfer()
+    +deleteLocal()
+    +getStorageType()
+    +getLocationType()
+}
+
+class MailPdfExportService <<@Service>> implements ExportService {
+    +export()
+    +transfer()
+    +deleteLocal()
+    +getStorageType()
+    +getLocationType()
+}
+
+enum TargetType {
+    MAIL, FAX
+}
+
+enum ExportType {
+    GIF, PDF
+}
+@enduml

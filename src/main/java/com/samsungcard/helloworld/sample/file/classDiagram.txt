@@ -1,0 +1,56 @@
+@startuml
+FileUploadController --> StorageService
+FileUploadController --> UploadFileService
+class FileUploadController <<@Controller>> {
+    - StorageService storageService
+    - UploadFileService uploadFileService
+
+    + listUploadedFiles()
+    + serveFile()
+    + handleFileUpload()
+    + handleStorageFileNotFound()
+}
+
+interface StorageService {
+    + init()
+    + store()
+    + loadAsResource()
+    + deleteAll()
+}
+
+FileSystemStorageService ..> FileNameGeneratorConfig
+FileSystemStorageService ..> StorageProperties
+class FileSystemStorageService <<@Service>> implements StorageService {
+    - Path rootLocation
+    - IdGenerator fileNameGenerator
+
+    + init()
+    + store()
+    + loadAsResource()
+    + deleteAll()
+}
+
+UploadFileService --> UploadFileRepository
+class UploadFileService <<@Service>> {
+    - UploadFileMapper uploadFileMapper
+
+    + add()
+    + getAll()
+    + findOriginFileName()
+}
+
+interface UploadFileRepository
+
+class FileNameGeneratorConfig <<@Configuration>> {
+    + @Bean IdGenerator fileNameGenerator()
+}
+
+class StorageProperties <<@ConfigurationProperties>> {
+    - String location
+
+    + getLocation()
+    + setLocation()
+}
+class StorageException extends RuntimeException
+class StorageFileNotFoundException extends StorageException
+@enduml

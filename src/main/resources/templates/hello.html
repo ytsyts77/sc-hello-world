@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="#{hello.title}"/>
+    <style>
+    li, li {
+        padding: 5px 5px 0px 5px;
+        margin-top: 10px;
+    }
+</style>
+</head>
+<body>
+<h3 th:text="#{hello.header}"/>
+<div>
+    <ol>▶ 샘플 프로그램 목록 ◀
+        <li><a href="/emp/list">사원 정보 관리</a></li>
+        <li><a href="/files">첨부파일 업로드/다운로드</a></li>
+        <li><a href="/simple-factory/send?type=mail">Simple Factory (mail)</a></li>
+        <li><a href="/simple-factory/send?type=fax">Simple Factory (fax)</a></li>
+        <li><a href="/factory-method/export/mail?type=pdf">Factory method 패턴 (mail-pdf)</a></li>
+        <li><a href="/factory-method/export/mail?type=gif">Factory method 패턴 (mail-gif)</a></li>
+        <li><a href="/factory-method/export/fax?type=pdf">Factory method 패턴 (fax-pdf)</a></li>
+        <li><a href="/factory-method/export/fax?type=gif">Factory method 패턴 (fax-gif)</a></li>
+    </ol>
+</div>
+</body>
+</html>

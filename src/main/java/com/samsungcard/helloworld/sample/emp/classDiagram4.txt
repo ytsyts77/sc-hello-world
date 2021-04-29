@@ -1,0 +1,29 @@
+@startuml
+EmpService -> EmpRepository
+class EmpService <<@Service>> {
+    -EmpRepository empRepository
+    +listAll()
+    +find()
+    +modify()
+    +remove()
+    +add()
+}
+
+interface JpaRepository {
+}
+
+EmpCustomRepository<|--EmpRepository
+JpaRepository<|--EmpRepository
+interface EmpRepository <<@Repository>> {
+}
+
+
+interface EmpCustomRepository {
+    +findContainsEmail()
+}
+
+class EmpCustomRepositoryImpl implements EmpCustomRepository {
+    +findContainsEmail()
+}
+
+@enduml

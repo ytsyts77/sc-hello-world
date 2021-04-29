@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>사원 정보 관리 - 사원 등록/수정</title>
+    <style>
+    table, th, td {
+        border:1px solid black;
+        border-collapse:collapse;
+    }
+
+    th, td {
+        padding:5px;
+    }
+
+    th {
+        background-color:gray;
+        color:white;
+    }
+
+    tr:nth-child(even) {
+        background-color:#eee
+    }
+
+    tr:nth-child(odd) {
+        backgrond-color:#fff;
+    }
+
+    .error
+
+    </style>
+</head>
+<body>
+<h3>사원 정보 등록/수정</h3>
+<form th:action="@{/emp/add}" th:object="${empDto}" method="post">
+    <table>
+        <tr>
+            <td>이름</td>
+            <td><input type="text" th:field="*{firstName}" id="firstName" placeholder="예) 길동"/></td>
+            <td th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}"></td>
+        </tr>
+        <tr>
+            <td>성</td>
+            <td><input type="text" th:field="*{lastName}" id="lastName" placeholder="예) 홍"/></td>
+            <td th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"></td>
+        </tr>
+        <tr>
+            <td>이메일</td>
+            <td><input type="text" th:field="*{email}" id="email" placeholder="예) myid@e-mail.com"/></td>
+            <td th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></td>
+        </tr>
+    </table>
+    <p>
+        <input type="submit" value="저장">
+    </p>
+    <input type="hidden" id="id" th:field="*{id}">
+</form>
+<div th:if="${message}">
+    <p><h4 th:text="${message}"/></p>
+</div>
+<p><a href="/">처음으로</a></p>
+</body>
+</html>
