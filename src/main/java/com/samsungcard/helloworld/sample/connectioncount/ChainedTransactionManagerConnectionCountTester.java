@@ -6,7 +6,6 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 /**
  * ChainedTransactionManager 사용시 chain 상태의 모든 트랜잭션 커넥션이 확보되는지 여부 확인하기.
  * 다한뒤에 각 TransactionManager가 바라보는 dataSource를 Lazy버전으로 바꾼뒤에 다시 해본다.
- *
  */
 public class ChainedTransactionManagerConnectionCountTester {
 
@@ -24,7 +23,7 @@ public class ChainedTransactionManagerConnectionCountTester {
             }).start();
         }
 
-        Thread.sleep(500);
+        Thread.sleep(10000);
         BasicDataSource firstDataSource = applicationContext.getBean("firstDataSource", BasicDataSource.class);
         BasicDataSource secondDataSource = applicationContext.getBean("secondDataSource", BasicDataSource.class);
 
@@ -36,11 +35,7 @@ public class ChainedTransactionManagerConnectionCountTester {
         System.out.println("firstDataSource connection count after second job : " + firstDataSource.getNumActive());
         System.out.println("secondDataSource connection count after second job : " + secondDataSource.getNumActive());
 
-        try {
-            Thread.sleep(10000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        Thread.sleep(10000);
 
         System.out.println("last firstDataSource connection count after second job : " + firstDataSource.getNumActive());
         System.out.println("last secondDataSource connection count after second job : " + secondDataSource.getNumActive());

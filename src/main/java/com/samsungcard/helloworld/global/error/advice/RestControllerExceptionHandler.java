@@ -17,7 +17,7 @@ import org.springframework.web.method.annotation.MethodArgumentTypeMismatchExcep
 import java.nio.file.AccessDeniedException;
 
 //@RestControllerAdvice(annotations = RestController.class)
-//@Order(1)
+@Order(1)
 public class RestControllerExceptionHandler {
     /**
      * javax.validation.Valid or @Validated 으로 binding error 발생시 발생한다.
